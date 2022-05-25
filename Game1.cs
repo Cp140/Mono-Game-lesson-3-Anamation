@@ -30,8 +30,14 @@ namespace Mono_Game_lesson_3__Anamation
         Rectangle tribbleOrangeRect;
         Vector2 tribbleOrangeSpeed;
 
+        //Background
+        Texture2D backGroundTexture;
+        Rectangle backGroundRect;
+        Vector2 backGroundSpeed;
+
         Random rnd = new Random();
-        List<Color> tribbleColourList = new List<Color>() { Color.BurlyWood, Color.Transparent, Color.Yellow, Color.};
+        List<Color> tribbleColourList = new List<Color>() { Color.BurlyWood, Color.Transparent, Color.Yellow, Color.Red, Color.Green, Color.Blue, Color.Black};
+        int rndColor;
 
         public Game1()
         {
@@ -82,6 +88,9 @@ namespace Mono_Game_lesson_3__Anamation
             tribbleOrangeTexture = Content.Load<Texture2D>("tribbleOrange");
             tribbleOrangeRect = new Rectangle(300, 100, 100, 100);
 
+            //backGround
+            backGroundTexture = Content.Load<Texture2D>("backGround1");
+            backGroundRect = new Rectangle(0, 0, 800, 600);
         }
 
         protected override void Update(GameTime gameTime)
@@ -98,6 +107,7 @@ namespace Mono_Game_lesson_3__Anamation
             {
                 tribbleBrownSpeed.X *= -1;
                 tribbleBrownRect.X = rnd.Next(0, _graphics.PreferredBackBufferWidth);
+
             }
 
 
@@ -113,8 +123,10 @@ namespace Mono_Game_lesson_3__Anamation
                 tribbleCreamSpeed.X *= -1;
 
             if (tribbleCreamRect.Top < 0 || tribbleCreamRect.Bottom > _graphics.PreferredBackBufferHeight)
+            {
                 tribbleCreamSpeed.Y *= -1;
-
+                rndColor = rnd.Next(0, 7);
+            }
 
             //Tribble Grey
             tribbleGreyRect.X += (int)tribbleGreySpeed.X;
@@ -145,11 +157,14 @@ namespace Mono_Game_lesson_3__Anamation
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
+            //Background
+            _spriteBatch.Draw(backGroundTexture, backGroundRect, Color.White);
+
             //Tribble Brown
             _spriteBatch.Draw(tribbleBrownTexture, tribbleBrownRect, Color.White);
 
             //Tribble Cream
-            _spriteBatch.Draw(tribbleCreamTexture, tribbleCreamRect, Color.White);
+            _spriteBatch.Draw(tribbleCreamTexture, tribbleCreamRect, tribbleColourList[rndColor]);
 
             //Tribble Grey
             _spriteBatch.Draw(tribbleGreyTexture, tribbleGreyRect, Color.White);
