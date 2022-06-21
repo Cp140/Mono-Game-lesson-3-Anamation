@@ -239,7 +239,6 @@ namespace Mono_Game_lesson_3__Anamation
                 //Tribble Orange
                 _spriteBatch.Draw(tribbleOrangeTexture, tribbleOrangeRect, Color.White);
             }
-            else if (currentScreen == Screen.Outtro)
                 _spriteBatch.End();
             base.Draw(gameTime);
 
